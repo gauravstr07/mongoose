@@ -82,24 +82,36 @@ const getDocument = async () => {
       $or: [{ ctype: "backend" }, { author: "Thapa tech" }],
     })
     .select({ name: 1 })
-    .sort({name : 1});
+    .sort({ name: 1 });
   console.log(result);
 };
 //getDocument();
 
-
 const updateDocument = async (_id) => {
-    try{
-        const result = await playList.findByIdAndUpdate({_id}, {
-            $set : {
-               name : "Core-Java",
-               ctype : "core-java"
-            }
-          });
-          console.log(result);
-    }catch(err){
-        console.log(`Error in updateDocument ---------- ${err}`);
-    }
-   
-}
+  try {
+    const result = await playList.findByIdAndUpdate(
+      { _id },
+      {
+        $set: {
+          name: "Core-Java",
+          ctype: "core-java",
+        },
+      }
+    );
+    console.log(result);
+  } catch (err) {
+    console.log(`Error in updateDocument ---------- ${err}`);
+  }
+};
 //updateDocument("63357e079d2b858b12b853c1");
+
+const deleteDocument = async (_id) => {
+  try {
+    const result = await playList.findByIdAndDelete({ _id });
+    console.log(result);
+  } catch (error) {
+    console.log(`Error in deleteDocument ---- ${error}`);
+  }
+};
+
+deleteDocument("633547fc0ff32b035e45e23e");
