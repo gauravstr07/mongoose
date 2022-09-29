@@ -37,36 +37,69 @@ const createDocument = async () => {
       videos: 73,
       author: "Thapa tech",
       active: true,
-    })
+    });
 
     const nodePlaylist = new playList({
-        name: "Node Js",
-        ctype: "Backend",
-        videos: 83,
-        author: "Thapa tech",
-        active: true,
-      })
+      name: "Node Js",
+      ctype: "Backend",
+      videos: 83,
+      author: "Thapa tech",
+      active: true,
+    });
 
-      const javascriptPlaylist = new playList({
-        name: "Javascript",
-        ctype: "front-end",
-        videos: 100,
-        author: "Thapa tech",
-        active: true,
-      })
+    const javascriptPlaylist = new playList({
+      name: "Javascript",
+      ctype: "front-end",
+      videos: 100,
+      author: "Thapa tech",
+      active: true,
+    });
 
-    const result = await playList.insertMany([reactPlaylist, nodePlaylist, javascriptPlaylist]);
+    const javaPlaylist = new playList({
+      name: "java",
+      ctype: "backend",
+      videos: 113,
+      author: "Code With Harry",
+      active: true,
+    });
+
+    const result = await playList.insertMany([
+      reactPlaylist,
+      nodePlaylist,
+      javascriptPlaylist,
+      javaPlaylist,
+    ]);
     console.log(result);
   } catch (err) {
     console.log(`Error in createDocument ---- ${err}`);
   }
 };
-
-// createDocument();
+//createDocument();
 
 const getDocument = async () => {
-  const result = await playList.find();
+  const result = await playList
+    .find({
+      $or: [{ ctype: "backend" }, { author: "Thapa tech" }],
+    })
+    .select({ name: 1 })
+    .sort({name : 1});
   console.log(result);
-}
+};
+//getDocument();
 
-getDocument();
+
+const updateDocument = async (_id) => {
+    try{
+        const result = await playList.findByIdAndUpdate({_id}, {
+            $set : {
+               name : "Core-Java",
+               ctype : "core-java"
+            }
+          });
+          console.log(result);
+    }catch(err){
+        console.log(`Error in updateDocument ---------- ${err}`);
+    }
+   
+}
+//updateDocument("63357e079d2b858b12b853c1");
