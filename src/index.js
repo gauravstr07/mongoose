@@ -32,14 +32,30 @@ const playList = new mongoose.model("Playlist", playlistSchema);
 const createDocument = async () => {
   try {
     const reactPlaylist = new playList({
-      name: "Node Js",
-      ctype: "Backend",
-      videos: 83,
+      name: "React Js",
+      ctype: "Front-end",
+      videos: 73,
       author: "Thapa tech",
       active: true,
-    });
+    })
 
-    const result = await reactPlaylist.save();
+    const nodePlaylist = new playList({
+        name: "Node Js",
+        ctype: "Backend",
+        videos: 83,
+        author: "Thapa tech",
+        active: true,
+      })
+
+      const javascriptPlaylist = new playList({
+        name: "Javascript",
+        ctype: "front-end",
+        videos: 100,
+        author: "Thapa tech",
+        active: true,
+      })
+
+    const result = await playList.insertMany([reactPlaylist, nodePlaylist, javascriptPlaylist]);
     console.log(result);
   } catch (err) {
     console.log(`Error in createDocument ---- ${err}`);
