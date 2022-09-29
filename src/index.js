@@ -62,4 +62,11 @@ const createDocument = async () => {
   }
 };
 
-createDocument();
+// createDocument();
+
+const getDocument = async () => {
+  const result = await playList.find();
+  console.log(result);
+}
+
+getDocument();
